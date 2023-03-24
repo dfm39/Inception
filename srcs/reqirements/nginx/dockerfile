@@ -1,8 +1,13 @@
 FROM alpine:latest
 
 
-RUN		apk update && \
-		apk add --no-cache nginx
+RUN		apk update && apk add --no-cache \
+		nginx \
+		openssl \
+		sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+		-subj "/C=DE/ST=NS/O=42WOB/CN=dfranke.42.fr" \
+		-out /etc/ssl/certs/dfranke.crt \
+		-keyout /etc/ssl/private/dfranke.key
 
 RUN		mkdir -p /run/nginx
 
