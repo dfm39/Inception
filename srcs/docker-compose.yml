@@ -2,11 +2,11 @@ version: "3.8"
 
 services:
 
-  # nginx:
-  #   build: ./requirements/nginx/
-  #   ports:
-  #   - "443:443"
-  #   env_file: .env
+  nginx:
+    build: ./requirements/nginx/
+    ports:
+    - "443:443"
+    env_file: .env
 
   wordpress:
     build: ./requirements/wordpress/

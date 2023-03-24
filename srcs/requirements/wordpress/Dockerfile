@@ -3,7 +3,6 @@ FROM alpine:latest
 
 RUN		apk update && apk add --no-cache \
 		bash \
-		util-linux \
 		curl \
 		php81 \
 		php81-fpm \
@@ -17,5 +16,7 @@ RUN		apk update && apk add --no-cache \
 RUN		curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 		chmod +x wp-cli.phar && \
 		mv wp-cli.phar /usr/local/bin/wp
+
+EXPOSE 9000
 	
-CMD [ "/usr/sbin/php-fpm81", "-F" ,"-R" ]
+CMD [ "php-fpm81", "-F" ,"-R" ]
