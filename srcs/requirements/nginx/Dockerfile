@@ -9,8 +9,6 @@ RUN		apk update && apk add --no-cache \
 		-out /etc/ssl/certs/dfranke.crt \
 		-keyout /etc/ssl/private/dfranke.key
 
-RUN		mkdir -p /run/nginx
-
 COPY	./*.html				/var/www/html/
 COPY	./conf/nginx.conf		/etc/nginx/nginx.conf
 
