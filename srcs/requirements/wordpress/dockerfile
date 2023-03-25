@@ -1,0 +1,26 @@
+FROM alpine:latest
+
+RUN		adduser -u 82 -D -S -G www-data www-data && \
+		apk update && apk add --no-cache \
+		bash \
+		mysql-client \
+		php81 \
+		php81-fpm \
+		php81-cli \
+		php81-cgi \
+		php81-mysqli \
+		php81-pdo \
+		php81-gd \
+		php81-mbstring \
+		php81-phar
+		
+RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+		chmod +x wp-cli.phar && \
+		mv wp-cli.phar /usr/local/bin/wp && \
+		wp cli update
+
+COPY	./conf/www.conf	/etc/php81/php-fpm.d/
+
+EXPOSE 9000
+
+CMD [ "php-fpm81", "-F" ,"-R" ]

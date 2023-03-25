@@ -2,14 +2,22 @@ version: "3.8"
 
 services:
 
-  nginx:
-    build: ./requirements/nginx/
-    ports:
-    - "443:443"
-    env_file: .env
+  # nginx:
+  #   build: ./requirements/nginx/
+  #   ports:
+  #   - "443:443"
+  #   env_file: .env
+  #   volumes:
+  #   - /home/dfranke/data/wordpress/:/var/www/html/
 
-  wordpress:
-    build: ./requirements/wordpress/
+  # wordpress:
+  #   build: ./requirements/wordpress/
+  #   env_file: .env
+  #   volumes:
+  #   - /home/dfranke/data/wordpress/:/var/www/html/
+
+  mariadb:
+    build: ./requirements/mariadb/
     env_file: .env
     volumes:
-    - /home/dfranke/data/wordpress/:/var/www.html/
+    - /home/dfranke/data/mariadb/:/var/lib/mysql/
