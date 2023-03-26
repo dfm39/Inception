@@ -1,23 +1,37 @@
 version: "3.8"
-
 services:
 
-  # nginx:
-  #   build: ./requirements/nginx/
-  #   ports:
-  #   - "443:443"
-  #   env_file: .env
-  #   volumes:
-  #   - /home/dfranke/data/wordpress/:/var/www/html/
+  nginx:
+    build: ./requirements/nginx/
+    ports:
+      - "443:443"
+    env_file: .env
+    volumes:
+      - /home/dfranke/data/wordpress/:/var/www/html/
+    networks:
+      - internal-network
+    depends_on:
+      - wordpress
 
-  # wordpress:
-  #   build: ./requirements/wordpress/
-  #   env_file: .env
-  #   volumes:
-  #   - /home/dfranke/data/wordpress/:/var/www/html/
+  wordpress:
+    build: ./requirements/wordpress/
+    env_file: .env
+    volumes:
+      - /home/dfranke/data/wordpress/:/var/www/html/
+    networks:
+      - internal-network
+    depends_on:
+      - mariadb
 
   mariadb:
     build: ./requirements/mariadb/
     env_file: .env
     volumes:
-    - /home/dfranke/data/mariadb/:/var/lib/mysql/
+      - /home/dfranke/data/mariadb/:/var/lib/mysql/
+    networks:
+      - internal-network
+
+networks:
+  internal-network:
+    name: internal-network
+    driver: bridge

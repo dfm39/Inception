@@ -3,7 +3,7 @@ FROM alpine:latest
 RUN		adduser -u 82 -D -S -G www-data www-data && \
 		apk update && apk add --no-cache \
 		bash \
-		mysql-client \
+		mariadb-client \
 		php81 \
 		php81-fpm \
 		php81-cli \
@@ -19,8 +19,11 @@ RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.p
 		mv wp-cli.phar /usr/local/bin/wp && \
 		wp cli update
 
-COPY	./conf/www.conf	/etc/php81/php-fpm.d/
+COPY	./conf/www.conf		/etc/php81/php-fpm.d/
+COPY	./tools/build-wp.sh	/usr/bin/
 
 EXPOSE 9000
+
+ENTRYPOINT [ "sh", "/usr/bin/build-wp.sh" ]
 
 CMD [ "php-fpm81", "-F" ,"-R" ]
