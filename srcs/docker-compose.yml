@@ -7,7 +7,7 @@ services:
       - "443:443"
     env_file: .env
     volumes:
-      - /home/dfranke/data/wordpress/:/var/www/html/
+      - ~/data/wordpress/:/var/www/html/
     networks:
       - internal-network
     depends_on:
@@ -17,7 +17,7 @@ services:
     build: ./requirements/wordpress/
     env_file: .env
     volumes:
-      - /home/dfranke/data/wordpress/:/var/www/html/
+      - ~/data/wordpress/:/var/www/html/
     networks:
       - internal-network
     depends_on:
