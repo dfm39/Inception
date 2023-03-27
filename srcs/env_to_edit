@@ -1,5 +1,14 @@
+DOMAIN=dfranke.42.fr
 
-
-MYSQL_ROOT_PASSWORD=1234Passwort!
+MYSQL_ROOT_PASSWORD=
 MYSQL_USER=wordpress
-MYSQL_PASSWORD=4321Wortpass!
+MYSQL_PASSWORD=
+MYSQL_DB=wp_db
+
+WP_TITLE=fun_site
+WP_ADMIN=ronaldinho
+WP_ADMIN_PASSWORD=!elElasico96
+WP_ADMIN_MAIL=gaucho@icq.com
+WP_USER_NAME=jiristajner
+WP_USER_PASSWORD=1896inTheSummer%
+WP_USER_MAIL=juergen.stajner@aol.com

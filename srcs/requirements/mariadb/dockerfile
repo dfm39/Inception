@@ -3,13 +3,9 @@ FROM alpine:latest
 RUN     apk update && apk add --no-cache \
         mariadb \
         mariadb-client \
-        bash \
-        openrc \
-        nginx && \
-        mkdir -p /run/openrc \
-	&& touch /run/openrc/softlevel && \
+        bash
 
-	mkdir -p /var/lib/mysql /var/run/mysqld; \
+RUN	mkdir -p /var/lib/mysql /var/run/mysqld; \
         chown -R mysql:mysql /var/lib/mysql /var/run/mysqld; \
         chmod +x /var/run/mysqld;
 
@@ -20,4 +16,4 @@ EXPOSE 3306
 
 ENTRYPOINT [ "sh", "/usr/bin/create_db.sh"]
 
-CMD     [ "tail", "-f", "/dev/null" ]
+CMD     [ "mariadbd" ]
