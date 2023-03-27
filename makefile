@@ -7,7 +7,7 @@ all: up
 
 up: 
 	@ if [ ! -f ./srcs/.env ]; then \
-		echo $(RED) "'.env' file is not existing, please edit ./srcs/env_to_edit with desired credentials and rename it to .env" $(EOC); \
+		echo $(RED) "\".env\" file is not existing, please edit \"./srcs/env_to_edit\" with desired credentials and rename it to \".env\"" $(EOC); \
 	else \
 		docker-compose -f ./srcs/docker-compose.yml up -d --build; \
 	fi
