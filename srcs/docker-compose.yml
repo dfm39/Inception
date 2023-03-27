@@ -27,7 +27,7 @@ services:
     build: ./requirements/mariadb/
     env_file: .env
     volumes:
-      - /home/dfranke/data/mariadb/:/var/lib/mysql/
+      - ~/data/mariadb/:/var/lib/mysql/
     networks:
       - internal-network
 
