@@ -1,20 +1,42 @@
 #------Colors--------
-RED		=	"\033[1;31m"
 EOC		=	"\033[0;0m"
+RED		=	"\033[1;31m"
+YELLOW	=	"\033[1;33m"
+GREEN	=	"\033[1;32m"
 #====================
 
 all: up
 
-up: 
-	@ if [ ! -f ./srcs/.env ]; then \
+up:	add_host 
+	@if [ ! -f ./srcs/.env ]; then \
 		echo $(RED) "\".env\" file is not existing, please edit \"./srcs/env_to_edit\" with desired credentials and rename it to \".env\"" $(EOC); \
 	else \
 		docker-compose -f ./srcs/docker-compose.yml up -d --build; \
 	fi
 
-down: 
+down:
 	@ docker compose -f ./srcs/docker-compose.yml down
 
-clean:	down
-	@ sudo rm -rf ~/data/wordpress
-	@ sudo rm -rf ~/data/mariadb
+add_host:
+	@if ! grep -q "dfranke.42.fr" /etc/hosts; then \
+        sudo sh -c 'echo "\n127.0.0.1 dfranke.42.fr" >> /etc/hosts'; \
+		echo $(YELLOW) "Added \"dfranke.42.fr\" to \"/etc/hosts\" file" $(EOC); \
+	else \
+	     echo $(GREEN) "\"/etc/hosts\" OK" $(EOC); \
+    fi
+
+clean_host:
+	@if grep -q "dfranke.42.fr" /etc/hosts; then \
+		sudo sed -i '/127.0.0.1 dfranke.42.fr/d' /etc/hosts; \
+		echo $(RED) "\"dfranke.42.fr\" was deleted from \"/etc/hosts\" file" $(EOC); \
+	fi
+
+clean:
+	@docker compose -f ./srcs/docker-compose.yml down --rmi all
+	@sudo rm -rf ~/data/wordpress
+	@sudo rm -rf ~/data/mariadb
+	@echo $(RED) "Volumes cleaned and all images deleted" $(EOC);
+	@make -s clean_host
+
+
+
