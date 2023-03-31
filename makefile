@@ -19,7 +19,7 @@ down:
 
 add_host:
 	@if ! grep -q "dfranke.42.fr" /etc/hosts; then \
-        sudo sh -c 'echo "\n127.0.0.1 dfranke.42.fr" >> /etc/hosts'; \
+        sudo sh -c 'echo "127.0.0.1 dfranke.42.fr" >> /etc/hosts'; \
 		echo $(YELLOW) "Added \"dfranke.42.fr\" to \"/etc/hosts\" file" $(EOC); \
 	else \
 	     echo $(GREEN) "\"/etc/hosts\" OK" $(EOC); \
