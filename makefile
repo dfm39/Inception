@@ -27,7 +27,7 @@ add_host:
 
 clean_host:
 	@if grep -q "dfranke.42.fr" /etc/hosts; then \
-		sudo sed -i '/127.0.0.1 dfranke.42.fr/d' /etc/hosts; \
+		sudo sed -i -e '/127.0.0.1 dfranke.42.fr/d' /etc/hosts; \
 		echo $(RED) "\"dfranke.42.fr\" was deleted from \"/etc/hosts\" file" $(EOC); \
 	fi
 
