@@ -35,8 +35,8 @@ re: clean all
 
 clean:
 	@docker compose -f ./srcs/docker-compose.yaml down --rmi all
-	@sudo rm -rf ~/data/wordpress
-	@sudo rm -rf ~/data/mariadb
+	@sudo rm -rf /home/dfranke/data/mariadb
+	@sudo rm -rf /home/dfranke/data/wordpress
 	@echo $(RED) "Volumes cleaned and all images deleted" $(EOC);
 	@make -s clean_host
 
