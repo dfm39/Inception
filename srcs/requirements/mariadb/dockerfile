@@ -10,7 +10,7 @@ RUN	mkdir -p /var/lib/mysql /var/run/mysqld; \
         chmod +x /var/run/mysqld;
 
 COPY    ./conf/my.cnf           /etc/
-COPY    ./tools/create_db.sh       /usr/bin/
+COPY    ./tools/create_db.sh    /usr/bin/
 
 EXPOSE 3306
 

@@ -11,11 +11,11 @@ up:	add_host
 	@if [ ! -f ./srcs/.env ]; then \
 		echo $(RED) "\".env\" file is not existing, please edit \"./srcs/env_to_edit\" with desired credentials and rename it to \".env\"" $(EOC); \
 	else \
-		docker-compose -f ./srcs/docker-compose.yml up -d --build; \
+		docker-compose -f ./srcs/docker-compose.yaml up -d --build; \
 	fi
 
 down:
-	@ docker compose -f ./srcs/docker-compose.yml down
+	@ docker compose -f ./srcs/docker-compose.yaml down
 
 add_host:
 	@if ! grep -q "dfranke.42.fr" /etc/hosts; then \
@@ -31,8 +31,10 @@ clean_host:
 		echo $(RED) "\"dfranke.42.fr\" was deleted from \"/etc/hosts\" file" $(EOC); \
 	fi
 
+re: clean all
+
 clean:
-	@docker compose -f ./srcs/docker-compose.yml down --rmi all
+	@docker compose -f ./srcs/docker-compose.yaml down --rmi all
 	@sudo rm -rf ~/data/wordpress
 	@sudo rm -rf ~/data/mariadb
 	@echo $(RED) "Volumes cleaned and all images deleted" $(EOC);

@@ -2,32 +2,35 @@ version: "3.8"
 services:
 
   nginx:
+    image: nginx:latest
     build: ./requirements/nginx/
     ports:
       - "443:443"
     env_file: .env
     volumes:
-      - ~/data/wordpress/:/var/www/html/
+      - /home/dfranke/data/wordpress/:/var/www/html/
     networks:
       - internal-network
     depends_on:
       - wordpress
 
   wordpress:
+    image: wordpress:latest
     build: ./requirements/wordpress/
     env_file: .env
     volumes:
-      - ~/data/wordpress/:/var/www/html/
+      - /home/dfranke/data/wordpress/:/var/www/html/
     networks:
       - internal-network
     depends_on:
       - mariadb
 
   mariadb:
+    image: mariadb:latest
     build: ./requirements/mariadb/
     env_file: .env
     volumes:
-      - ~/data/mariadb/:/var/lib/mysql/
+      - /home/dfranke/data/mariadb/:/var/lib/mysql/
     networks:
       - internal-network
 
