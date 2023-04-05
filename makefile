@@ -4,8 +4,13 @@ RED		=	"\033[1;31m"
 YELLOW	=	"\033[1;33m"
 GREEN	=	"\033[1;32m"
 #====================
+ifeq ($(shell uname), Linux)
+	DIR:=/home/dfranke/data/
+endif
 
-DIR:=/home/dfranke/data/
+ifeq ($(shell uname), Darwin)
+	DIR:=/Users/dfranke/data/
+endif
 
 all: up
 
@@ -13,11 +18,11 @@ up:	add_host add_volumes
 	@if [ ! -f ./srcs/.env ]; then \
 		echo $(RED) "\".env\" file is not existing, please edit \"./srcs/env_to_edit\" with desired credentials and rename it to \".env\"" $(EOC); \
 	else \
-		docker-compose -f ./srcs/docker-compose.yaml up -d --build; \
+		docker-compose -f ./srcs/docker-compose.yml up -d --build; \
 	fi
 
 down:
-	@ docker compose -f ./srcs/docker-compose.yaml down
+	@ sudo docker compose -f ./srcs/docker-compose.yml down
 
 add_host:
 	@if ! grep -q "dfranke.42.fr" /etc/hosts; then \
@@ -29,7 +34,9 @@ add_host:
 
 add_volumes:
 	@sudo mkdir -p $(DIR)mariadb
+	@sudo chown -R $(shell whoami) $(DIR)mariadb/
 	@sudo mkdir -p $(DIR)wordpress
+	@sudo chown -R $(shell whoami) $(DIR)wordpress/
 	@sudo touch $(DIR)initialized
 
 clean_volumes:
@@ -49,7 +56,7 @@ clean_host:
 	fi
 
 clean:
-	@docker compose -f ./srcs/docker-compose.yaml down --rmi all
+	@docker compose -f ./srcs/docker-compose.yml down --rmi all
 	@echo $(RED) "All affiliated images deleted" $(EOC);
 	
 	@make -s clean_volumes
