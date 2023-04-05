@@ -44,18 +44,18 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      #device: /home/dfranke/data/wordpress/
+      device: /home/dfranke/data/wordpress/
       #ON MAC:
-      device: ~/dfranke/data/wordpress/
+      #device: ~/dfranke/data/wordpress/
   mdb_volume:
     name: mdb_volume
     driver: local
     driver_opts:
       type: none
       o: bind
-      #device: /home/dfranke/data/mariadb/
+      device: /home/dfranke/data/mariadb/
       #ON MAC:
-      device: /~/dfranke/data/mariadb/
+      #device: /~/dfranke/data/mariadb/
 
 networks:
   inception:

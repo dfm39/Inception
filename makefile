@@ -4,16 +4,8 @@ RED		=	"\033[1;31m"
 YELLOW	=	"\033[1;33m"
 GREEN	=	"\033[1;32m"
 #====================
-ifeq ($(shell uname), Linux)
-	DIR:=/home/dfranke/data/
-endif
 
-ifeq ($(shell uname), Darwin)
-	DIR:=~/dfranke/data/
-endif
-
-
-
+DIR:=/home/dfranke/data/
 
 all: up
 
