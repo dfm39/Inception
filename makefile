@@ -4,13 +4,12 @@ RED		=	"\033[1;31m"
 YELLOW	=	"\033[1;33m"
 GREEN	=	"\033[1;32m"
 #====================
-DIR:=
 ifeq ($(shell uname), Linux)
-	DIR+=/home/dfranke/data/
+	DIR:=/home/dfranke/data/
 endif
 
 ifeq ($(shell uname), Darwin)
-	DIR:=+=/Users/dfranke/data/
+	DIR:=~/dfranke/data/
 endif
 
 
@@ -44,10 +43,10 @@ add_volumes:
 clean_volumes:
 
 	@if [ -f $(DIR)initialized ]; then \
+		docker volume rm mdb_volume wp_volume > /dev/null; \
 		sudo rm -rf $(DIR)mariadb; \
 		sudo rm -rf $(DIR)wordpress; \
 		sudo rm -rf $(DIR)initialized; \
-		docker volume rm mdb_volume wp_volume > /dev/null; \
 		echo $(RED) "Volumes removed from Docker & \"/Users/dfranke/data/*\"" $(EOC); \
 	fi
 
