@@ -4,10 +4,21 @@ RED		=	"\033[1;31m"
 YELLOW	=	"\033[1;33m"
 GREEN	=	"\033[1;32m"
 #====================
+DIR:=
+ifeq ($(shell uname), Linux)
+	DIR+=/home/dfranke/data/
+endif
+
+ifeq ($(shell uname), Darwin)
+	DIR:=+=/Users/dfranke/data/
+endif
+
+
+
 
 all: up
 
-up:	add_host add_vol_folder
+up:	add_host add_volumes
 	@if [ ! -f ./srcs/.env ]; then \
 		echo $(RED) "\".env\" file is not existing, please edit \"./srcs/env_to_edit\" with desired credentials and rename it to \".env\"" $(EOC); \
 	else \
@@ -25,33 +36,19 @@ add_host:
 	     echo $(GREEN) "\"/etc/hosts\" OK" $(EOC); \
     fi
 
-add_vol_folder:
-	@if [ -d /Users ]; then \
-		sudo mdkir -p /Users/dfranke/data/mariadb; \
-		sudo mdkir -p /Users/dfranke/data/wordpress; \
-		sudo touch /Users/dfranke/data/initialized; \
-	else \
-		sudo mkdir -p /home/dfranke/data/mariadb; \
-		sudo mkdir -p /home/dfranke/data/wordpress; \
-		sudo touch /home/dfranke/data/initialized; \
-	fi
+add_volumes:
+	@sudo mkdir -p $(DIR)mariadb
+	@sudo mkdir -p $(DIR)wordpress
+	@sudo touch $(DIR)initialized
 
 clean_volumes:
 
-	@if [ -f /Users/dfranke/data/initialized ]; then \
-		sudo rm -rf /Users/dfranke/data/mariadb; \
-		sudo rm -rf /Users/dfranke/data/wordpress; \
-		sudo rm -rf /Users/dfranke/data/initialized; \
+	@if [ -f $(DIR)initialized ]; then \
+		sudo rm -rf $(DIR)mariadb; \
+		sudo rm -rf $(DIR)wordpress; \
+		sudo rm -rf $(DIR)initialized; \
 		docker volume rm mdb_volume wp_volume > /dev/null; \
 		echo $(RED) "Volumes removed from Docker & \"/Users/dfranke/data/*\"" $(EOC); \
-	fi
-
-	@if [ -f /home/dfranke/data/initialized ]; then \
-		sudo rm -rf /home/dfranke/data/mariadb; \
-		sudo rm -rf /home/dfranke/data/wordpress; \
-		sudo rm -rf /home/dfranke/data/initialized; \
-		docker volume rm mdb_volume wp_volume > /dev/null; \
-		echo $(RED) "Volumes removed from Docker & \"/home/dfranke/data/*\"" $(EOC); \
 	fi
 
 clean_host:
