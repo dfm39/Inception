@@ -29,9 +29,29 @@ add_vol_folder:
 	@if [ -d /Users ]; then \
 		sudo mdkir -p /Users/dfranke/data/mariadb; \
 		sudo mdkir -p /Users/dfranke/data/wordpress; \
+		sudo touch /Users/dfranke/data/initialized; \
 	else \
 		sudo mkdir -p /home/dfranke/data/mariadb; \
 		sudo mkdir -p /home/dfranke/data/wordpress; \
+		sudo touch /home/dfranke/data/initialized; \
+	fi
+
+clean_volumes:
+
+	@if [ -f /Users/dfranke/data/initialized ]; then \
+		sudo rm -rf /Users/dfranke/data/mariadb; \
+		sudo rm -rf /Users/dfranke/data/wordpress; \
+		sudo rm -rf /Users/dfranke/data/initialized; \
+		docker volume rm mdb_volume wp_volume > /dev/null; \
+		echo $(RED) "Volumes removed from Docker & \"/Users/dfranke/data/*\"" $(EOC); \
+	fi
+
+	@if [ -f /home/dfranke/data/initialized ]; then \
+		sudo rm -rf /home/dfranke/data/mariadb; \
+		sudo rm -rf /home/dfranke/data/wordpress; \
+		sudo rm -rf /home/dfranke/data/initialized; \
+		docker volume rm mdb_volume wp_volume > /dev/null; \
+		echo $(RED) "Volumes removed from Docker & \"/home/dfranke/data/*\"" $(EOC); \
 	fi
 
 clean_host:
@@ -40,25 +60,13 @@ clean_host:
 		echo $(RED) "\"dfranke.42.fr\" was deleted from \"/etc/hosts\" file" $(EOC); \
 	fi
 
-re: clean all
-
 clean:
 	@docker compose -f ./srcs/docker-compose.yaml down --rmi all
-
-	@if [ -d /Users/dfranke/data/ ]; then \
-		sudo rm -rf /Users/dfranke/data/mariadb; \
-		sudo rm -rf /Users/dfranke/data/wordpress; \
-		echo $(RED) "Volumes deleted from \"~/dfranke/data/*\"" $(EOC); \
-	fi
-
-	@if [ -d /home/dfranke/data/ ]; then \
-		sudo rm -rf /home/dfranke/data/mariadb; \
-		sudo rm -rf /home/dfranke/data/wordpress; \
-		echo $(RED) "Volumes deleted from \"/home/dfranke/data/*\"" $(EOC); \
-	fi
-
 	@echo $(RED) "All affiliated images deleted" $(EOC);
+	
+	@make -s clean_volumes
 	@make -s clean_host
 
+re: clean all
 
 
