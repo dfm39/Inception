@@ -9,9 +9,7 @@ services:
     env_file: .env
     restart: on-failure
     volumes:
-      - ~/dfranke/data/wordpress/:/var/www/html/
-      #ON SCHOOL MAC:
-      # - /home/dfranke/data/wordpress/:/var/www/html/
+      - wp_volume:/var/www/html/
     networks:
       - inception
     depends_on:
@@ -23,9 +21,7 @@ services:
     env_file: .env
     restart: on-failure
     volumes:
-      - ~/dfranke/data/wordpress/:/var/www/html/
-      #ON SCHOOL MAC:
-      # - /home/dfranke/data/wordpress/:/var/www/html/
+      - wp_volume:/var/www/html/
     networks:
       - inception
     depends_on:
@@ -37,11 +33,29 @@ services:
     env_file: .env
     restart: on-failure
     volumes:
-      - ~/dfranke/data/mariadb/:/var/lib/mysql/
-      #ON SCHOOL MAC:
-      # - /home/dfranke/data/mariadb/:/var/lib/mysql/
+      - mdb_volume:/var/lib/mysql/
     networks:
       - inception
+
+volumes:
+  wp_volume:
+    name: wp_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/dfranke/data/wordpress/
+    #ON MAC:
+    #device: /Users/dfranke/data/wordpress/
+  mdb_volume:
+    name: mdb_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/dfranke/data/mariadb/
+    #ON MAC:
+    #device: /Users/dfranke/data/mariadb/
 
 networks:
   inception:

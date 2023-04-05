@@ -7,7 +7,7 @@ GREEN	=	"\033[1;32m"
 
 all: up
 
-up:	add_host 
+up:	add_host add_vol_folder
 	@if [ ! -f ./srcs/.env ]; then \
 		echo $(RED) "\".env\" file is not existing, please edit \"./srcs/env_to_edit\" with desired credentials and rename it to \".env\"" $(EOC); \
 	else \
@@ -25,6 +25,15 @@ add_host:
 	     echo $(GREEN) "\"/etc/hosts\" OK" $(EOC); \
     fi
 
+add_vol_folder:
+	@if [ -d /Users ]; then \
+		sudo mdkir -p /Users/dfranke/data/mariadb; \
+		sudo mdkir -p /Users/dfranke/data/wordpress; \
+	else \
+		sudo mkdir -p /home/dfranke/data/mariadb; \
+		sudo mkdir -p /home/dfranke/data/wordpress; \
+	fi
+
 clean_host:
 	@if grep -q "dfranke.42.fr" /etc/hosts; then \
 		sudo sed -i -e '/127.0.0.1 dfranke.42.fr/d' /etc/hosts; \
@@ -36,9 +45,9 @@ re: clean all
 clean:
 	@docker compose -f ./srcs/docker-compose.yaml down --rmi all
 
-	@if [ -d ~/dfranke/data/ ]; then \
-		sudo rm -rf ~/dfranke/data/mariadb; \
-		sudo rm -rf ~/dfranke/data/wordpress; \
+	@if [ -d /Users/dfranke/data/ ]; then \
+		sudo rm -rf /Users/dfranke/data/mariadb; \
+		sudo rm -rf /Users/dfranke/data/wordpress; \
 		echo $(RED) "Volumes deleted from \"~/dfranke/data/*\"" $(EOC); \
 	fi
 
