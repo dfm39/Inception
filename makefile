@@ -22,7 +22,7 @@ up:	add_host add_volumes
 	fi
 
 down:
-	@ sudo docker compose -f ./srcs/docker-compose.yml down
+	@docker compose -f ./srcs/docker-compose.yml down
 
 add_host:
 	@if ! grep -q "dfranke.42.fr" /etc/hosts; then \
