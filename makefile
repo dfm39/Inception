@@ -35,9 +35,20 @@ re: clean all
 
 clean:
 	@docker compose -f ./srcs/docker-compose.yaml down --rmi all
-	@sudo rm -rf /home/dfranke/data/mariadb
-	@sudo rm -rf /home/dfranke/data/wordpress
-	@echo $(RED) "Volumes cleaned and all images deleted" $(EOC);
+
+	@if [ -d ~/dfranke/data/ ]; then \
+		sudo rm -rf ~/dfranke/data/mariadb; \
+		sudo rm -rf ~/dfranke/data/wordpress; \
+		echo $(RED) "Volumes deleted from \"~/dfranke/data/*\"" $(EOC); \
+	fi
+
+	@if [ -d /home/dfranke/data/ ]; then \
+		sudo rm -rf /home/dfranke/data/mariadb; \
+		sudo rm -rf /home/dfranke/data/wordpress; \
+		echo $(RED) "Volumes deleted from \"/home/dfranke/data/*\"" $(EOC); \
+	fi
+
+	@echo $(RED) "All affiliated images deleted" $(EOC);
 	@make -s clean_host
 
 

@@ -1,4 +1,4 @@
-#/bin/sh
+#!  /bin/sh
 
 tmp_low=$(echo ${WP_ADMIN} | tr '[:upper:]' '[:lower:]')
 

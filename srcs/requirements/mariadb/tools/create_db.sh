@@ -1,9 +1,9 @@
-#!/bin/sh
+#!  /bin/sh
 
 if [ ! -f /var/lib/mysql/installed ]; then
     mariadb-install-db
     touch /var/lib/mysql/installed
-    mariadbd & sleep 1
+    mariadbd & sleep 2
     echo "creating database and user"
     mariadb -e "USE mysql;"
     mariadb -e "DELETE FROM mysql.user WHERE User='';"

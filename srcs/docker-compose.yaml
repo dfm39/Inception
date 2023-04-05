@@ -7,10 +7,13 @@ services:
     ports:
       - "443:443"
     env_file: .env
+    restart: on-failure
     volumes:
-      - /home/dfranke/data/wordpress/:/var/www/html/
+      - ~/dfranke/data/wordpress/:/var/www/html/
+      #ON SCHOOL MAC:
+      # - /home/dfranke/data/wordpress/:/var/www/html/
     networks:
-      - internal-network
+      - inception
     depends_on:
       - wordpress
 
@@ -18,10 +21,13 @@ services:
     image: wordpress:latest
     build: ./requirements/wordpress/
     env_file: .env
+    restart: on-failure
     volumes:
-      - /home/dfranke/data/wordpress/:/var/www/html/
+      - ~/dfranke/data/wordpress/:/var/www/html/
+      #ON SCHOOL MAC:
+      # - /home/dfranke/data/wordpress/:/var/www/html/
     networks:
-      - internal-network
+      - inception
     depends_on:
       - mariadb
 
@@ -29,12 +35,15 @@ services:
     image: mariadb:latest
     build: ./requirements/mariadb/
     env_file: .env
+    restart: on-failure
     volumes:
-      - /home/dfranke/data/mariadb/:/var/lib/mysql/
+      - ~/dfranke/data/mariadb/:/var/lib/mysql/
+      #ON SCHOOL MAC:
+      # - /home/dfranke/data/mariadb/:/var/lib/mysql/
     networks:
-      - internal-network
+      - inception
 
 networks:
-  internal-network:
-    name: internal-network
+  inception:
+    name: inception
     driver: bridge
