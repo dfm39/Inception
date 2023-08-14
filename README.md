@@ -56,7 +56,17 @@ This project aims to broaden your knowledge of system administration by using Do
 
 ## Chapter III Subject
 
-This project consists of setting up a small infrastructure composed of different services under specific rules. The entire project has to be completed in a virtual machine using Docker Compose. Each Docker image must have the same name as its corresponding service, and each service has to run in a dedicated container.
+- Set up an infrastructure with different services using Docker containers.
+- Each Docker image must have the same name as its corresponding service.
+- Use Dockerfiles to build containers.
+- Services include NGINX with TLSv1.2 or TLSv1.3, WordPress + php-fpm, and MariaDB.
+- Configure volumes for WordPress database and website files.
+- Establish a docker-network for container communication.
+- Containers must restart in case of crashes.
+
+## Expected Result
+
+A well-structured and optimized infrastructure with NGINX, WordPress, and MariaDB services, all orchestrated using Docker and docker-compose.
 
 ### Additions
 
