@@ -1,6 +1,7 @@
-# Webserv
+# Inception
 
-Welcome to the Webserv project! In this assignment, we delve into the realm of web server technology and explore the power of Docker to create a versatile web server environment. The objective is to set up a small infrastructure of different services, each running in dedicated Docker containers, and implement essential features required for hosting web applications.
+Welcome to the Inception project! In this assignment, you'll gain practical experience with Docker and system administration by setting up a small infrastructure composed of different services. The goal is to create a highly configurable and efficient environment using Docker containers.
+
 
 ## Table of Contents
 - [Get Started](#get-started)
