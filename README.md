@@ -63,7 +63,7 @@ This project aims to broaden your knowledge of system administration by using Do
 - Establish a docker-network for container communication.
 - Containers must restart in case of crashes.
 
-## Expected Result
+### Expected Result
 
 A well-structured and optimized infrastructure with NGINX, WordPress, and MariaDB services, all orchestrated using Docker and docker-compose.
 
