@@ -1,6 +1,6 @@
 # Inception
 
-Welcome to the Inception project! In this assignment, you'll gain practical experience with Docker and system administration by setting up a small infrastructure composed of different services. The goal is to create a highly configurable and efficient environment using Docker containers.
+Welcome to school 42'2 Inception project! In this assignment, we'll dive into Docker and system administration by setting up a small infrastructure composed of different services. The goal is to create a highly configurable and efficient environment using Docker containers.
 
 
 ## Table of Contents
