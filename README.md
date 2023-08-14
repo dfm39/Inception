@@ -1,6 +1,6 @@
 # Inception
 
-Welcome to my implementation of school 42'2 Inception project! In this assignment, i dived into Docker and system administration by setting up a small infrastructure composed of different services. The goal was to create a highly configurable and efficient environment using Docker containers.
+Welcome to my implementation of school 42's Inception project! In this assignment, i dived into Docker and system administration by setting up a small infrastructure composed of different services. The goal was to create a highly configurable and efficient environment using Docker containers.
 
 ## Table of Contents
 - [Get Started](#get-started)
